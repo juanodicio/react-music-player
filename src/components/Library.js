@@ -1,14 +1,18 @@
 import LibrarySong from "./LibrarySong";
 
-const Library = ({songs, setCurrentSong}) => {
+const Library = ({libraryStatus, songs, setCurrentSong, setSongs, isPlaying, audioRef}) => {
   return (
-    <div className="library">
+    <div className={`library ${libraryStatus ? 'active-library': ''}`}>
       <h2>Library</h2>
 
       <div className="library-songs">
         {songs.map(song => <LibrarySong key={song.id}
                                         song={song}
-                                        setCurrentSong={setCurrentSong} /> )}
+                                        songs={songs}
+                                        isPlaying={isPlaying}
+                                        setCurrentSong={setCurrentSong}
+                                        setSongs={setSongs}
+                                        audioRef={audioRef} /> )}
       </div>
     </div>
   );
