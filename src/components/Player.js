@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-const Player = ({currentSong, songInfo, setSongInfo, isPlaying, setIsPlaying, audioRef}) => {
+const Player = ({currentSong, songs, setCurrentSong, songInfo, setSongInfo, isPlaying, setIsPlaying, audioRef}) => {
   const rangeRef = useRef(null);
 
   const playSongHandler = () => {
@@ -27,7 +27,17 @@ const Player = ({currentSong, songInfo, setSongInfo, isPlaying, setIsPlaying, au
   }
 
   const skipTrackHandler = (direction) => {
+    const currentIndex = songs.findIndex((s) => s.id === currentSong.id);
 
+    if (direction === "skipForward") {
+      setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+    } else {
+      if ((currentIndex - 1) < 0) {
+        setCurrentSong(songs[songs.length - 1]);
+        return;
+      }
+      setCurrentSong(songs[(currentIndex - 1) % songs.length]);
+    }
   }
 
   return (
