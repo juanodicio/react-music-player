@@ -2,8 +2,8 @@ import {playAudio} from "../util";
 
 const LibrarySong = ({song, songs, setCurrentSong, setSongs, audioRef, isPlaying}) => {
 
-  const songSelectHandler = () => {
-    setCurrentSong(song);
+  const songSelectHandler = async () => {
+    await setCurrentSong(song);
     audioRef.current.play();
 
     const newSongs = songs.map(s => {
